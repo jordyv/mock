@@ -1,0 +1,3 @@
+= HTTP mock server
+
+Simple Go application for starting a configurable general HTTP mock server.
