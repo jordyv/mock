@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
-	"log"
+	log "github.com/Sirupsen/logrus"
 	"net/http"
 )
 
@@ -16,9 +16,14 @@ func main() {
 	flag.Parse()
 
 	http.HandleFunc("/", func(writer http.ResponseWriter, request *http.Request) {
-		fmt.Fprintln(writer, "OK")
+		log.
+			WithFields(log.Fields{"IP": request.RemoteAddr, "userAgent": request.UserAgent()}).
+			Infof("Got %s request for '%s'", request.Method, request.RequestURI)
+		if _, err := fmt.Fprintln(writer, "OK"); err != nil {
+			log.WithError(err).Error("could not write client response")
+		}
 	})
 
-	log.Printf("Starting mock server at port %d...", port)
-	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", port), nil))
+	log.Infof("Starting mock server at port %d...", port)
+	log.Panic(http.ListenAndServe(fmt.Sprintf(":%d", port), nil))
 }
