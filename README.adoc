@@ -1,3 +1,50 @@
 = HTTP mock server
 
 Simple Go application for starting a configurable general HTTP mock server.
+
+== Installation
+
+=== Download with `go get`
+
+```
+go get -u github.com/jordyv/mock
+```
+
+=== From source
+
+```
+$ git clone https://github.com/jordyv/mock.git
+$ dep ensure
+```
+
+== Usage
+
+```
+Usage of mock
+  -port int
+        port where the mock server should be listening on (default 8000)
+```
+
+.Start a very simple mock server at port 8001
+```
+$ mock -port 8001
+
+$ curl -v http://localhost:8001
+* Rebuilt URL to: http://localhost:8001/
+*   Trying ::1...
+* TCP_NODELAY set
+* Connected to localhost (::1) port 8001 (#0)
+> GET / HTTP/1.1
+> Host: localhost:8001
+> User-Agent: curl/7.54.0
+> Accept: */*
+>
+< HTTP/1.1 200 OK
+< Date: Mon, 11 Mar 2019 09:21:06 GMT
+< Content-Length: 3
+< Content-Type: text/plain; charset=utf-8
+<
+OK
+* Connection #0 to host localhost left intact
+
+```
