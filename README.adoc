@@ -48,3 +48,7 @@ OK
 * Connection #0 to host localhost left intact
 
 ```
+
+== Roadmap
+
+ - Add configurable endpoints and responses
