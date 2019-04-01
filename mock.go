@@ -18,7 +18,7 @@ func main() {
 	http.HandleFunc("/", func(writer http.ResponseWriter, request *http.Request) {
 		log.
 			WithFields(log.Fields{"IP": request.RemoteAddr, "userAgent": request.UserAgent()}).
-			Infof("Got %s request for '%s'", request.Method, request.RequestURI)
+			Infof("Got %s request for '%s'. Headers: %s", request.Method, request.RequestURI, request.Header)
 		if _, err := fmt.Fprintln(writer, "OK"); err != nil {
 			log.WithError(err).Error("could not write client response")
 		}
